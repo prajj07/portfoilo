@@ -8,7 +8,7 @@ export async function POST(req: NextRequest) {
   });
 
   // Send the form data to Netlify Forms endpoint
-  const response = await fetch("https://formspree.io/f/mnqekzjz", {
+  const response = await fetch("https://formspree.io/f/xldbdejl", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
