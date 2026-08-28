@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     siteName: "Prajwal M",
     images: [
       {
-        url: "/profile.png",
+        url: "/profile.jpg",
         width: 682,
         height: 1024,
         alt: "Prajwal M",
@@ -55,7 +55,7 @@ export const metadata: Metadata = {
     title: "Prajwal M — Software Engineer | Full-Stack & AI",
     description:
       "Software Engineer focused on production systems across web, mobile, backend, cloud, and LLM-powered product features.",
-    images: ["/profile.png"],
+    images: ["/profile.jpg"],
   },
   robots: {
     index: true,

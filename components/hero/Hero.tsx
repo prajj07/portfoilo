@@ -54,7 +54,7 @@ export function Hero() {
         <div className="order-2 mx-auto w-full max-w-md lg:max-w-none">
           <div className="relative mx-auto aspect-[3/4] w-full max-w-[24rem] overflow-hidden lg:ml-auto lg:max-w-[28rem]">
             <Image
-              src="/profile.png"
+              src="/profile.jpg"
               alt={`${profile.name}, Software Engineer`}
               fill
               priority
