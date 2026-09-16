@@ -1,34 +1,55 @@
+"use client";
+
+import dynamic from "next/dynamic";
 import Image from "next/image";
 import Link from "next/link";
 import { Github, Linkedin } from "lucide-react";
 import { Container } from "@/components/shared/Container";
+import { SectionLabel } from "@/components/shared/SectionLabel";
 import { profile } from "@/data/profile";
+import { HeroField } from "@/components/hero/HeroField";
+
+const HeroScene = dynamic(
+  () => import("@/components/hero/HeroScene").then((m) => m.HeroScene),
+  { ssr: false, loading: () => null },
+);
 
 export function Hero() {
   return (
-    <section id="home" className="relative scroll-mt-20 pt-24 sm:pt-28">
-      <Container className="grid items-center gap-12 pb-16 pt-6 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16 lg:pb-20 lg:pt-10">
-        <div className="order-1 flex flex-col justify-center">
-          <p className="editorial-label animate-fade-up">{profile.brand}</p>
+    <section
+      id="system"
+      className="relative isolate min-h-[100svh] scroll-mt-20 overflow-hidden pt-24 sm:pt-28"
+    >
+      <HeroScene />
+      <div className="hero-scene-veil" aria-hidden />
+      <HeroField />
 
-          <h1 className="display-font mt-5 text-balance text-[clamp(3.25rem,7.5vw,6.5rem)] font-semibold leading-[0.9] tracking-[-0.07em] animate-fade-up animate-delay-1">
+      <Container className="relative z-10 grid min-h-[calc(100svh-5.5rem)] items-end gap-10 pb-14 pt-6 lg:grid-cols-[1.2fr_0.8fr] lg:items-center lg:gap-8 lg:pb-20">
+        <div className="max-w-2xl">
+          <SectionLabel number="01" title="SYSTEM" className="animate-fade-up" />
+
+          <p className="editorial-label mt-6 animate-fade-up animate-delay-1">
+            {profile.brand}
+          </p>
+
+          <h1 className="display-font mt-3 text-balance text-[clamp(3rem,8vw,6.25rem)] font-semibold leading-[0.88] tracking-[-0.07em] animate-fade-up animate-delay-1">
             {profile.name}
           </h1>
 
-          <p className="display-font mt-7 max-w-xl text-balance text-[clamp(1.25rem,2.2vw,1.75rem)] font-medium leading-snug tracking-[-0.03em] text-foreground/90 animate-fade-up animate-delay-2">
-            {profile.headline}
+          <p className="display-font mt-8 max-w-xl whitespace-pre-line text-[clamp(1.35rem,3vw,2.35rem)] font-medium leading-[1.05] tracking-[-0.04em] text-foreground/92 animate-fade-up animate-delay-2">
+            {`I BUILD PRODUCTS\nFROM IDEA → PRODUCTION.`}
           </p>
 
-          <p className="mt-5 max-w-md text-pretty text-base leading-relaxed text-muted-foreground animate-fade-up animate-delay-3">
+          <p className="mt-6 max-w-md text-pretty text-base leading-relaxed text-muted-foreground animate-fade-up animate-delay-3">
             {profile.summary}
           </p>
 
           <div className="mt-9 flex flex-wrap items-center gap-x-6 gap-y-3 border-t border-border pt-6 animate-fade-up animate-delay-3">
-            <Link href="#projects" className="editorial-link text-primary">
-              Selected work
+            <Link href="#work" className="editorial-link text-primary">
+              Open work <span aria-hidden>→</span>
             </Link>
             <Link href="#contact" className="editorial-link">
-              Contact
+              Let&apos;s talk <span aria-hidden>↗</span>
             </Link>
             <Link
               href={profile.github}
@@ -51,15 +72,15 @@ export function Hero() {
           </div>
         </div>
 
-        <div className="order-2 mx-auto w-full max-w-md lg:max-w-none">
-          <div className="relative mx-auto aspect-[3/4] w-full max-w-[24rem] overflow-hidden lg:ml-auto lg:max-w-[28rem]">
+        <div className="relative mx-auto w-full max-w-[15rem] justify-self-end sm:max-w-[17rem] lg:max-w-[18rem]">
+          <div className="relative aspect-[3/4] w-full overflow-hidden opacity-90 animate-fade-up animate-delay-2">
             <Image
-              src="/profile.jpg"
+              src="/profile.png"
               alt={`${profile.name}, Software Engineer`}
               fill
               priority
               className="object-contain object-bottom"
-              sizes="(max-width: 1024px) 90vw, 28rem"
+              sizes="(max-width: 1024px) 55vw, 18rem"
             />
           </div>
         </div>

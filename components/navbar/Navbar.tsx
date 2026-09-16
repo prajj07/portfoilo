@@ -5,13 +5,13 @@ import Link from "next/link";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/shared/Container";
-import { navItems } from "@/data/navigation";
+import { navItems, talkLink } from "@/data/navigation";
 import { profile } from "@/data/profile";
 import { cn } from "@/lib/utils";
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
-  const [active, setActive] = useState("#home");
+  const [active, setActive] = useState("#system");
   const [open, setOpen] = useState(false);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
@@ -24,7 +24,10 @@ export function Navbar() {
   }, []);
 
   useEffect(() => {
-    const ids = navItems.map((item) => item.href.replace("#", ""));
+    const ids = [
+      ...navItems.map((item) => item.href.replace("#", "")),
+      "contact",
+    ];
     const elements = ids
       .map((id) => document.getElementById(id))
       .filter((el): el is HTMLElement => Boolean(el));
@@ -37,7 +40,7 @@ export function Navbar() {
           .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
         if (visible[0]?.target.id) setActive(`#${visible[0].target.id}`);
       },
-      { rootMargin: "-35% 0px -50% 0px", threshold: [0, 0.25, 0.5] }
+      { rootMargin: "-35% 0px -50% 0px", threshold: [0, 0.25, 0.5] },
     );
 
     elements.forEach((el) => observer.observe(el));
@@ -61,7 +64,7 @@ export function Navbar() {
       }
       if (event.key !== "Tab" || !panelRef.current) return;
       const focusable = panelRef.current.querySelectorAll<HTMLElement>(
-        "a[href], button:not([disabled])"
+        "a[href], button:not([disabled])",
       );
       if (!focusable.length) return;
       const first = focusable[0];
@@ -84,12 +87,12 @@ export function Navbar() {
         "fixed inset-x-0 top-0 z-50 border-b transition-colors duration-300",
         scrolled
           ? "border-border/70 bg-background/90 backdrop-blur-md"
-          : "border-transparent bg-background/40 backdrop-blur-sm"
+          : "border-transparent bg-background/30 backdrop-blur-sm",
       )}
     >
       <Container className="flex h-14 items-center justify-between gap-4 sm:h-16">
         <Link
-          href="#home"
+          href="#system"
           className="display-font text-sm font-semibold tracking-[-0.02em] transition-colors hover:text-primary"
           onClick={() => setOpen(false)}
         >
@@ -102,15 +105,24 @@ export function Navbar() {
               key={item.href}
               href={item.href}
               className={cn(
-                "px-3 py-2 text-sm transition-colors",
+                "px-3 py-2 font-mono text-[11px] uppercase tracking-[0.14em] transition-colors",
                 active === item.href
                   ? "text-primary"
-                  : "text-muted-foreground hover:text-foreground"
+                  : "text-muted-foreground hover:text-foreground",
               )}
             >
               {item.label}
             </Link>
           ))}
+          <Link
+            href={talkLink.href}
+            className={cn(
+              "ml-2 border border-border px-3 py-2 font-mono text-[11px] uppercase tracking-[0.14em] transition-colors hover:border-primary hover:text-primary",
+              active === talkLink.href && "border-primary text-primary",
+            )}
+          >
+            {talkLink.label}
+          </Link>
         </nav>
 
         <Button
@@ -140,13 +152,22 @@ export function Navbar() {
                 href={item.href}
                 onClick={() => setOpen(false)}
                 className={cn(
-                  "border-b border-border py-3 text-sm",
-                  active === item.href ? "text-primary" : "text-muted-foreground"
+                  "border-b border-border py-3 font-mono text-xs uppercase tracking-[0.14em]",
+                  active === item.href
+                    ? "text-primary"
+                    : "text-muted-foreground",
                 )}
               >
                 {item.label}
               </Link>
             ))}
+            <Link
+              href={talkLink.href}
+              onClick={() => setOpen(false)}
+              className="py-3 font-mono text-xs uppercase tracking-[0.14em] text-primary"
+            >
+              {talkLink.label}
+            </Link>
           </Container>
         </div>
       ) : null}

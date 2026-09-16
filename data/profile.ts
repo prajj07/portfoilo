@@ -1,10 +1,9 @@
 export const profile = {
   name: "Prajwal M",
   brand: "Software Engineer",
-  headline:
-    "I build scalable software, intelligent systems, and products that solve real problems.",
+  headline: "I BUILD PRODUCTS FROM IDEA → PRODUCTION.",
   summary:
-    "Production-oriented engineer working across web, mobile, backends, and LLM-powered product features.",
+    "Production-oriented engineer working across web, mobile, backends, cloud, and LLM-powered product features — close to real problems, not just demos.",
   email: "prajwalvm10@gmail.com",
   github: "https://github.com/prajj07",
   linkedin: "https://linkedin.com/in/prajwalm07/",
