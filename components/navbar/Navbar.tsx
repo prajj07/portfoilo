@@ -5,13 +5,14 @@ import Link from "next/link";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/shared/Container";
+import { LocalClock } from "@/components/shared/LocalClock";
 import { navItems, talkLink } from "@/data/navigation";
 import { profile } from "@/data/profile";
 import { cn } from "@/lib/utils";
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
-  const [active, setActive] = useState("#system");
+  const [active, setActive] = useState("");
   const [open, setOpen] = useState(false);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
@@ -55,6 +56,12 @@ export function Navbar() {
   }, [open]);
 
   useEffect(() => {
+    if (!open) return;
+    const first = panelRef.current?.querySelector<HTMLElement>("a[href]");
+    first?.focus();
+  }, [open]);
+
+  useEffect(() => {
     function onKeyDown(event: KeyboardEvent) {
       if (!open) return;
       if (event.key === "Escape") {
@@ -92,20 +99,21 @@ export function Navbar() {
     >
       <Container className="flex h-14 items-center justify-between gap-4 sm:h-16">
         <Link
-          href="#system"
+          href="#index"
           className="display-font text-sm font-semibold tracking-[-0.02em] transition-colors hover:text-primary"
           onClick={() => setOpen(false)}
         >
           {profile.name}
         </Link>
 
-        <nav className="hidden items-center gap-1 md:flex" aria-label="Primary">
+        <nav className="hidden items-center gap-1 lg:flex" aria-label="Primary">
           {navItems.map((item) => (
             <Link
               key={item.href}
               href={item.href}
+              aria-current={active === item.href ? "true" : undefined}
               className={cn(
-                "px-3 py-2 font-mono text-[11px] uppercase tracking-[0.14em] transition-colors",
+                "px-2.5 py-2 font-mono text-[11px] uppercase tracking-[0.14em] transition-colors",
                 active === item.href
                   ? "text-primary"
                   : "text-muted-foreground hover:text-foreground",
@@ -114,8 +122,10 @@ export function Navbar() {
               {item.label}
             </Link>
           ))}
+          <LocalClock className="ml-3 hidden xl:inline" />
           <Link
             href={talkLink.href}
+            aria-current={active === talkLink.href ? "true" : undefined}
             className={cn(
               "ml-2 border border-border px-3 py-2 font-mono text-[11px] uppercase tracking-[0.14em] transition-colors hover:border-primary hover:text-primary",
               active === talkLink.href && "border-primary text-primary",
@@ -125,25 +135,27 @@ export function Navbar() {
           </Link>
         </nav>
 
-        <Button
-          ref={menuButtonRef}
-          variant="ghost"
-          size="icon"
-          className="md:hidden"
-          onClick={() => setOpen((value) => !value)}
-          aria-expanded={open}
-          aria-controls="mobile-nav"
-          aria-label={open ? "Close menu" : "Open menu"}
-        >
-          {open ? <X className="size-4" /> : <Menu className="size-4" />}
-        </Button>
+        <div className="flex items-center gap-3 lg:hidden">
+          <LocalClock className="hidden sm:inline" />
+          <Button
+            ref={menuButtonRef}
+            variant="ghost"
+            size="icon"
+            onClick={() => setOpen((value) => !value)}
+            aria-expanded={open}
+            aria-controls="mobile-nav"
+            aria-label={open ? "Close menu" : "Open menu"}
+          >
+            {open ? <X className="size-4" /> : <Menu className="size-4" />}
+          </Button>
+        </div>
       </Container>
 
       {open ? (
         <div
           id="mobile-nav"
           ref={panelRef}
-          className="border-t border-border bg-background md:hidden"
+          className="border-t border-border bg-background lg:hidden"
         >
           <Container className="flex flex-col py-3">
             {navItems.map((item) => (
@@ -151,6 +163,7 @@ export function Navbar() {
                 key={item.href}
                 href={item.href}
                 onClick={() => setOpen(false)}
+                aria-current={active === item.href ? "true" : undefined}
                 className={cn(
                   "border-b border-border py-3 font-mono text-xs uppercase tracking-[0.14em]",
                   active === item.href

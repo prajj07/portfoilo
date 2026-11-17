@@ -1,32 +1,25 @@
 "use client";
 
-import dynamic from "next/dynamic";
 import Image from "next/image";
 import Link from "next/link";
 import { Github, Linkedin } from "lucide-react";
 import { Container } from "@/components/shared/Container";
 import { SectionLabel } from "@/components/shared/SectionLabel";
-import { profile } from "@/data/profile";
 import { HeroField } from "@/components/hero/HeroField";
-
-const HeroScene = dynamic(
-  () => import("@/components/hero/HeroScene").then((m) => m.HeroScene),
-  { ssr: false, loading: () => null },
-);
+import { profile } from "@/data/profile";
 
 export function Hero() {
   return (
     <section
-      id="system"
+      id="index"
       className="relative isolate min-h-[100svh] scroll-mt-20 overflow-hidden pt-24 sm:pt-28"
     >
-      <HeroScene />
       <div className="hero-scene-veil" aria-hidden />
       <HeroField />
 
       <Container className="relative z-10 grid min-h-[calc(100svh-5.5rem)] items-end gap-10 pb-14 pt-6 lg:grid-cols-[1.2fr_0.8fr] lg:items-center lg:gap-8 lg:pb-20">
         <div className="max-w-2xl">
-          <SectionLabel number="01" title="SYSTEM" className="animate-fade-up" />
+          <SectionLabel number="00" title="INDEX" className="animate-fade-up" />
 
           <p className="editorial-label mt-6 animate-fade-up animate-delay-1">
             {profile.brand}
@@ -37,7 +30,7 @@ export function Hero() {
           </h1>
 
           <p className="display-font mt-8 max-w-xl whitespace-pre-line text-[clamp(1.35rem,3vw,2.35rem)] font-medium leading-[1.05] tracking-[-0.04em] text-foreground/92 animate-fade-up animate-delay-2">
-            {`I BUILD PRODUCTS\nFROM IDEA → PRODUCTION.`}
+            {profile.headline}
           </p>
 
           <p className="mt-6 max-w-md text-pretty text-base leading-relaxed text-muted-foreground animate-fade-up animate-delay-3">
@@ -80,7 +73,7 @@ export function Hero() {
               fill
               priority
               className="object-contain object-bottom"
-              sizes="(max-width: 1024px) 55vw, 18rem"
+              sizes="(max-width: 1024px) 15rem, 18rem"
             />
           </div>
         </div>

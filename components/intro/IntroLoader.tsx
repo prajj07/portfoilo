@@ -22,6 +22,7 @@ export function IntroLoader({ onComplete }: IntroLoaderProps) {
   const [visible, setVisible] = useState(false);
   const [exiting, setExiting] = useState(false);
   const [count, setCount] = useState(START);
+  const [announce, setAnnounce] = useState("Loading");
   const started = useRef(false);
 
   useEffect(() => {
@@ -67,6 +68,7 @@ export function IntroLoader({ onComplete }: IntroLoaderProps) {
       }
 
       setCount(0);
+      setAnnounce("Ready");
       setExiting(true);
       window.setTimeout(() => {
         try {
@@ -93,12 +95,10 @@ export function IntroLoader({ onComplete }: IntroLoaderProps) {
   const display = String(count).padStart(2, "0");
 
   return (
-    <div
-      className={`intro-loader${exiting ? " intro-loader--exit" : ""}`}
-      role="status"
-      aria-live="polite"
-      aria-label={`Loading ${START - count} of ${START}`}
-    >
+    <div className={`intro-loader${exiting ? " intro-loader--exit" : ""}`}>
+      <p className="sr-only" role="status" aria-live="polite">
+        {announce}
+      </p>
       <div className="intro-loader__gradient" aria-hidden />
       <div className="intro-loader__counter" aria-hidden>
         {display}

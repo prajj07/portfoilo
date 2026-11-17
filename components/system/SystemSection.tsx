@@ -42,7 +42,7 @@ export function SystemSection() {
 
   return (
     <section
-      id="system-map"
+      id="system"
       ref={ref}
       className="scroll-mt-20 border-y border-border bg-surface py-20 sm:py-28"
     >
@@ -65,7 +65,7 @@ export function SystemSection() {
               <li
                 key={layer.id}
                 className={cn(
-                  "border-b border-border px-0 py-6 pr-6 transition-opacity duration-500 sm:border-r sm:odd:pr-8 lg:[&:nth-child(3n)]:border-r-0",
+                  "border-b border-border px-0 py-6 pr-6 transition-opacity duration-500 sm:border-r sm:odd:pr-8 sm:[&:nth-child(2n)]:border-r-0 lg:[&:nth-child(2n)]:border-r lg:[&:nth-child(3n)]:border-r-0",
                   on ? "opacity-100" : "opacity-25",
                 )}
               >
@@ -86,6 +86,9 @@ export function SystemSection() {
         <div className="mt-16 max-w-2xl border-t border-border pt-8">
           <p className="text-sm leading-relaxed text-muted-foreground">
             {about.paragraphs[0]}
+          </p>
+          <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
+            {about.paragraphs[1]}
           </p>
           <p className="mt-4 font-mono text-[11px] uppercase tracking-[0.14em] text-muted-foreground">
             {about.model}

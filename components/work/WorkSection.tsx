@@ -18,11 +18,13 @@ function ArchitectureMap({
   nodes: ArchNode[];
   edges: { from: string; to: string }[];
 }) {
-  const [active, setActive] = useState<string | null>(null);
+  const [pinned, setPinned] = useState<string | null>(null);
+  const [hovered, setHovered] = useState<string | null>(null);
   const byId = useMemo(
     () => Object.fromEntries(nodes.map((n) => [n.id, n])),
     [nodes],
   );
+  const active = hovered ?? pinned;
   const activeNode = active ? byId[active] : null;
 
   return (
@@ -32,13 +34,14 @@ function ArchitectureMap({
           System · Inspect →
         </p>
         <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-primary">
-          {activeNode ? activeNode.label : "HOVER A NODE"}
+          {activeNode ? activeNode.label : "SELECT A NODE"}
         </p>
       </div>
 
       <div className="relative mt-4 aspect-[16/10] w-full">
         <svg
           viewBox="0 0 100 100"
+          preserveAspectRatio="none"
           className="absolute inset-0 h-full w-full"
           aria-hidden
         >
@@ -69,10 +72,14 @@ function ArchitectureMap({
             <button
               key={node.id}
               type="button"
-              onMouseEnter={() => setActive(node.id)}
-              onMouseLeave={() => setActive(null)}
-              onFocus={() => setActive(node.id)}
-              onBlur={() => setActive(null)}
+              aria-pressed={pinned === node.id}
+              onMouseEnter={() => setHovered(node.id)}
+              onMouseLeave={() => setHovered(null)}
+              onFocus={() => setHovered(node.id)}
+              onBlur={() => setHovered(null)}
+              onClick={() =>
+                setPinned((current) => (current === node.id ? null : node.id))
+              }
               className={cn(
                 "absolute -translate-x-1/2 -translate-y-1/2 border px-2 py-1 font-mono text-[9px] uppercase tracking-[0.12em] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
                 on

@@ -1,5 +1,7 @@
 import Link from "next/link";
 import { Container } from "@/components/shared/Container";
+import { LocalClock } from "@/components/shared/LocalClock";
+import { sectionIndex } from "@/data/navigation";
 import { profile } from "@/data/profile";
 
 export function Footer() {
@@ -44,11 +46,35 @@ export function Footer() {
             >
               Email ↗
             </Link>
-            <p className="mt-4 font-mono text-[10px] uppercase tracking-[0.14em] text-muted-foreground">
+            <LocalClock className="mt-4" />
+            <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-muted-foreground">
               © {year}
             </p>
           </div>
         </div>
+
+        <nav
+          aria-label="Sections"
+          className="mt-12 border-t border-border pt-8"
+        >
+          <ul className="flex flex-wrap gap-x-5 gap-y-2">
+            {sectionIndex.map((section) => (
+              <li key={section.href}>
+                <Link
+                  href={section.href}
+                  className="font-mono text-[10px] uppercase tracking-[0.14em] text-muted-foreground transition-colors hover:text-foreground"
+                >
+                  <span className="text-primary">{section.number}</span>
+                  <span className="mx-1.5 text-border">/</span>
+                  {section.title}
+                </Link>
+              </li>
+            ))}
+          </ul>
+          <p className="mt-4 font-mono text-[10px] uppercase tracking-[0.14em] text-border">
+            {`Jump 0–${sectionIndex.length - 1} · /`}
+          </p>
+        </nav>
       </Container>
     </footer>
   );

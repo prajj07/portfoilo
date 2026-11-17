@@ -182,26 +182,6 @@ body:has(.intro-loader) #pre-loader-shell {
   display: none;
 }
 
-.hero-scene canvas {
-  display: block;
-  width: 100% !important;
-  height: 100% !important;
-}
-
-.hero-scene-bleed {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-}
-
-.hero-scene-bleed canvas {
-  display: block;
-  width: 100% !important;
-  height: 100% !important;
-}
-
-/* Soft left veil so type stays readable over the 3D plane */
 .hero-field__chip {
   padding: 0.35rem 0.55rem;
   border: 1px solid;

@@ -1,4 +1,4 @@
-import type { ClientProject, PersonalProject } from "./projects";
+import type { ClientProject } from "./projects";
 
 /** Surfaces derived only from listed technologies / highlights. */
 export function projectSurfaces(project: ClientProject): string[] {
@@ -104,12 +104,5 @@ export function projectArchitecture(project: ClientProject): {
       { from: "cache", to: "data" },
       { from: "data", to: "ops" },
     ],
-  };
-}
-
-export function labMeta(project: PersonalProject, index: number) {
-  return {
-    code: `EXPERIMENT / ${String(index + 1).padStart(3, "0")}`,
-    status: project.liveUrl ? "LIVE" : "LOCAL",
   };
 }

@@ -10,16 +10,6 @@ export type ClientProject = {
   technologies: string[];
 };
 
-export type PersonalProject = {
-  kind: "personal";
-  title: string;
-  description: string;
-  technologies: string[];
-  image: string;
-  liveUrl?: string;
-  githubUrl?: string;
-};
-
 export const clientProjects: ClientProject[] = [
   {
     kind: "client",
@@ -93,28 +83,5 @@ export const clientProjects: ClientProject[] = [
       "Docker",
       "REST APIs",
     ],
-  },
-];
-
-export const personalProjects: PersonalProject[] = [
-  {
-    kind: "personal",
-    title: "Travel Bookings",
-    description:
-      "Travel booking UI for searching flights, hotels, and car rentals.",
-    technologies: ["React", "Tailwind CSS"],
-    image: "/travel.jpg",
-    liveUrl: "https://travel-booking-theta.vercel.app/",
-    githubUrl: "https://github.com/prajj07/travel-booking",
-  },
-  {
-    kind: "personal",
-    title: "Dynamic Button Workflow",
-    description:
-      "Workflow builder for creating and managing customizable button-based flows.",
-    technologies: ["React", "Tailwind CSS"],
-    image: "/workflow.jpg",
-    liveUrl: "https://task-ecru-gamma.vercel.app/",
-    githubUrl: "https://github.com/prajj07/task",
   },
 ];

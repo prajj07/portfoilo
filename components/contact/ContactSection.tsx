@@ -46,7 +46,7 @@ export function ContactSection() {
       className="scroll-mt-20 border-t border-border bg-surface py-20 sm:py-28"
     >
       <Container>
-        <SectionLabel number="07" title="CONTACT" />
+        <SectionLabel number="06" title="CONTACT" />
         <h2 className="display-font mt-6 max-w-3xl whitespace-pre-line text-[clamp(2.4rem,6vw,4.5rem)] font-semibold leading-[0.92] tracking-[-0.06em]">
           {`LET’S BUILD\nSOMETHING.`}
         </h2>

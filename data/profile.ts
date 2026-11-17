@@ -1,7 +1,7 @@
 export const profile = {
   name: "Prajwal M",
   brand: "Software Engineer",
-  headline: "I BUILD PRODUCTS FROM IDEA → PRODUCTION.",
+  headline: "I BUILD PRODUCTS\nFROM IDEA → PRODUCTION.",
   summary:
     "Production-oriented engineer working across web, mobile, backends, cloud, and LLM-powered product features — close to real problems, not just demos.",
   email: "prajwalvm10@gmail.com",

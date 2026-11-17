@@ -1,5 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Sora, IBM_Plex_Mono, IBM_Plex_Sans } from "next/font/google";
+import { experiences } from "@/data/experience";
+import { profile } from "@/data/profile";
 import "./globals.css";
 
 const sora = Sora({
@@ -41,21 +43,12 @@ export const metadata: Metadata = {
     description:
       "Products → Systems → Production. Full-stack and forward-deployed engineering across mobile, web, backend, cloud, and LLM application integration.",
     siteName: "Prajwal M",
-    images: [
-      {
-        url: "/profile.png",
-        width: 682,
-        height: 1024,
-        alt: "Prajwal M — Software Engineer",
-      },
-    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Prajwal M — Software Engineer",
     description:
       "Products → Systems → Production. Engineering across mobile, web, backend, cloud, and LLM application integration.",
-    images: ["/profile.png"],
   },
   robots: {
     index: true,
@@ -73,6 +66,21 @@ export const viewport: Viewport = {
   themeColor: "#12110f",
   width: "device-width",
   initialScale: 1,
+};
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: profile.name,
+  jobTitle: experiences[0].role,
+  worksFor: {
+    "@type": "Organization",
+    name: experiences[0].company,
+  },
+  url: siteUrl,
+  email: `mailto:${profile.email}`,
+  sameAs: [profile.github, profile.linkedin],
+  description: profile.summary,
 };
 
 export default function RootLayout({
@@ -120,6 +128,10 @@ export default function RootLayout({
             99
           </span>
         </div>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
         {children}
         {/* Hide shell only — do not mutate <html className> before hydration */}
         <script

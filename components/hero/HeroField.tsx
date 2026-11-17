@@ -95,11 +95,18 @@ export function HeroField() {
       smooth.current.scroll = progress;
     };
 
+    let inView = true;
+
     window.addEventListener("pointermove", onMove, { passive: true });
     window.addEventListener("scroll", onScroll, { passive: true });
     onScroll();
 
     const tick = () => {
+      if (!inView) {
+        raf.current = 0;
+        return;
+      }
+
       smooth.current.x = lerp(
         smooth.current.x,
         pointer.current.active ? pointer.current.x : 0,
@@ -139,10 +146,23 @@ export function HeroField() {
       raf.current = requestAnimationFrame(tick);
     };
 
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        inView = entry.isIntersecting;
+        if (inView && !raf.current) {
+          raf.current = requestAnimationFrame(tick);
+        }
+      },
+      { threshold: 0.05 },
+    );
+    io.observe(el);
+
     raf.current = requestAnimationFrame(tick);
 
     return () => {
       cancelAnimationFrame(raf.current);
+      raf.current = 0;
+      io.disconnect();
       window.removeEventListener("pointermove", onMove);
       window.removeEventListener("scroll", onScroll);
     };
